@@ -9,6 +9,8 @@ public class OrdersManager : MonoBehaviour
 	[SerializeField]
 	List<CustomerAI> customers;
 	[SerializeField]
+	CustomerPatience[] originalCustomerPatiences;
+	[SerializeField]
 	float timeBetweenOrders;
 
 	[SerializeField]
@@ -19,10 +21,14 @@ public class OrdersManager : MonoBehaviour
 	TMPro.TMP_Text scoreText;
 
 	float lastOrderTime;
+	[SerializeField]
+	Queue<CustomerPatience> availableCustomerPatiences;
 
 	#region MONOBEHAVIOUR
 	private void Start()
 	{
+		availableCustomerPatiences = new Queue<CustomerPatience>();
+		RefillQueue();
 		Time.timeScale = 1f;
 		if (StaticHelper.firstPlay)
 		{
@@ -30,6 +36,7 @@ public class OrdersManager : MonoBehaviour
 			StaticHelper.firstPlay = false;
 			firstPLayPanel.SetActive(true);
 		}
+		customers.AddRange(FindObjectsOfType<CustomerAI>());
 	}
 
 	private void OnEnable()
@@ -53,13 +60,16 @@ public class OrdersManager : MonoBehaviour
 			List<CustomerAI> custs = customers.Where(x => x.isWaitingForOrder == false && x.isEating == false).ToList();
 			if (custs.Count > 0)
 			{
-				custs[Random.Range(0, custs.Count)].Order(100);
+				Debug.Log(string.Join(",", availableCustomerPatiences));
+				custs[Random.Range(0, custs.Count)].Order(100, GetOrderTime(availableCustomerPatiences.Dequeue()));
 				lastOrderTime = Time.time;
+				if (availableCustomerPatiences.Count == 0) 
+					RefillQueue();
 			}
-			else
-			{
-				StaticHelper.Gameover = true;
-			}
+			//else
+			//{
+			//	StaticHelper.Gameover = true;
+			//}
 		}
 	} 
 	#endregion
@@ -78,7 +88,36 @@ public class OrdersManager : MonoBehaviour
 
 	private void StaticHelper_scoreTriggerReached(int value)
 	{
-		timeBetweenOrders -= value * .3f;
+		timeBetweenOrders -= .3f;
+		Debug.Log($"TimeBetweenChange : {timeBetweenOrders}");
+	}
+
+	void RefillQueue()
+	{
+		List<CustomerPatience> tmpCustomerPatiences = new List<CustomerPatience>();
+		tmpCustomerPatiences.AddRange(originalCustomerPatiences);
+
+		for (int i = 0; i < originalCustomerPatiences.Length; i++)
+		{
+			int rng = Random.Range(0, tmpCustomerPatiences.Count - 1);
+			availableCustomerPatiences.Enqueue(tmpCustomerPatiences[rng]);
+			tmpCustomerPatiences.RemoveAt(rng);
+		}
+	}
+
+	float GetOrderTime(CustomerPatience patience)
+	{
+		switch (patience)
+		{
+			case CustomerPatience.Impatient:
+				return 6f;
+			case CustomerPatience.Normal:
+				return 9f;
+			case CustomerPatience.Patient:
+				return 12f;
+			default:
+				return 0f;
+		}
 	}
 
 	public void ReloadScene()

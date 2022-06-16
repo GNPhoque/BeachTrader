@@ -8,8 +8,6 @@ public class CustomerAI : BaseAI
 	TMPro.TMP_Text orderTimeText;
     [SerializeField]
     GameObject orderBubble;
-	[SerializeField]
-	float orderWaitingTime;
 
 	int maxScore;
 
@@ -17,6 +15,7 @@ public class CustomerAI : BaseAI
 	public bool isWaitingForOrder;
 	public bool isEating;
 	float scoreMultiplyer = 1f;
+	float orderWaitingTime;
 
 	private void OnEnable()
 	{
@@ -44,8 +43,9 @@ public class CustomerAI : BaseAI
 		}
 	}
 
-	public void Order(int score)
+	public void Order(int score, float time)
 	{
+		orderWaitingTime = time;
         orderBubble.SetActive(true);
         isWaitingForOrder = true;
 		currentOrderWaitingTime = orderWaitingTime;
@@ -82,7 +82,7 @@ public class CustomerAI : BaseAI
 
 	IEnumerator Eat()
 	{
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(1f);
 		isEating = false;
 	}
 }

@@ -1,0 +1,4 @@
+-Chariot a un point fixe pour recharger glaces/sodes/chichis...
+-Customer sur une bouée qui bouge avec les vagues
+-Customer bonus qui traverse l'écran (bonus space invaders)
+-powerups

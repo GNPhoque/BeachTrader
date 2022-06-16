@@ -9,7 +9,7 @@ public static class StaticHelper
 
 	static int lastTriggerIndex;
 	private static bool gameover;
-	public static bool firstPlay = true;
+	public static bool firstPlay = false;
 	
 	static List<int> scoreTriggers = new List<int>() { 200, 500, 1200, 1800, 2600, 3500, 5000, 7000, 10000, int.MaxValue };
 	public static bool Gameover { get => gameover; set { gameover = value; onGameOver?.Invoke(); } }

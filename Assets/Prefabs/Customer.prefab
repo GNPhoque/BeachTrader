@@ -255,7 +255,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderTimeText: {fileID: 9155247833241932308}
   orderBubble: {fileID: 9155247833307569883}
-  orderWaitingTime: 8
   isWaitingForOrder: 0
   isEating: 0
 --- !u!1 &9155247833241932310
@@ -294,7 +293,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 2.24, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9155247833241932309
 CanvasRenderer:
@@ -324,7 +323,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 123
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -409,7 +408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9155247833307569880
 Transform:
   m_ObjectHideFlags: 0
