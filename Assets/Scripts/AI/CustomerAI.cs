@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CustomerAI : BaseAI
 {
+	[SerializeField]
+	TMPro.TMP_Text orderTimeText;
     [SerializeField]
     GameObject orderBubble;
 	[SerializeField]
@@ -38,7 +40,7 @@ public class CustomerAI : BaseAI
 			currentOrderWaitingTime -= Time.deltaTime;
 			if (currentOrderWaitingTime <= 0f) 
 				StaticHelper.Gameover = true;
-
+			orderTimeText.text = Mathf.CeilToInt(currentOrderWaitingTime).ToString();
 		}
 	}
 
@@ -50,7 +52,7 @@ public class CustomerAI : BaseAI
 		maxScore = Mathf.FloorToInt(score * scoreMultiplyer);
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	private void OnCollisionStay2D(Collision2D collision)
 	{
 		if (isWaitingForOrder)
 		{
