@@ -123,6 +123,7 @@ public class OrdersManager : MonoBehaviour
 	public void ReloadScene()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		StaticHelper.PlayerScore = 0;
 	}
 
 	public void Play()
